@@ -1,0 +1,23 @@
+/* Import other CSS files */
+@import url(./login/login.css);
+@import url(./index/welcome.css);
+@import url(./Systemadmin/dashboard.css);
+@import url(./Systemadmin/inspectors.css);
+@import url(./mechanical/mechanical.css);
+@import url(./Systemadmin/business_record.css);
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    min-height: 100vh;
+    background-color: #f8fafc;
+    overflow-x: hidden;
+    
+}

@@ -1,0 +1,488 @@
+/* Professional Welcome Page Styles */
+
+.body-welcome {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-image: url('../../images/bg1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow-x: hidden;
+    padding: 10px 20px;
+}
+
+
+/* Header Section */
+
+
+.welcome-logo img{
+    width: 140px;
+    height: 140px;
+    background: linear-gradient(135deg, #081c60 0%, #0e075e 100%);
+    border-radius: 50%;
+    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+}
+
+.welcome-title-img{
+    width: 550px;
+    height: auto;
+    object-fit: contain;
+}
+
+.welcome-header-container{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 2rem;
+
+}
+
+.welcome-subtitle {
+    font-size: 1.4rem;
+    color: #2c3e50;
+    font-weight: 500;
+    max-width: 800px;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Main Content */
+.welcome-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+ 
+}
+
+.welcome-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.welcome-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+   
+}
+
+/* Lottie container responsive sizing */
+.lottie-building {
+    width: 100%;
+    max-width: 620px;
+    height: 520px;
+    margin: 0 auto 20px;
+}
+
+/* Description Section */
+.welcome-description {
+    text-align: left;
+    max-width: 100%;
+    margin: 0;
+    
+}
+
+.welcome-description p {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    line-height: 1.8;
+    font-weight: 400;
+    margin-bottom: 50px;
+}
+
+/* Features Section */
+.welcome-features {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: 0;
+}
+
+.feature-section {
+    text-align: left;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(20px);
+    box-shadow: 
+        0 8px 32px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.feature-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 15px 35px rgba(255, 255, 255, 0.2),
+        0 8px 32px rgba(255, 255, 255, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(25px);
+}
+
+.feature-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.feature-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(135deg, #66d2ea 0%, #3e99e3 100%);
+    border-radius: 2px;
+}
+
+.feature-description {
+    font-size: 1rem;
+    color: #6c757d;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+/* Actions Section */
+.welcome-actions {
+    text-align: left;
+    margin-top: 2rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    margin: 0 0.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    min-width: 160px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #66d2ea 0%, #3e99e3 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #09a4bb;
+    border: 2px solid #66c7ea;
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, #66d2ea 0%, #3e99e3 100%);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .welcome-main {
+        gap: 3rem;
+    }
+    
+    .welcome-title-img {
+        width: 450px;
+    }
+    
+    .welcome-logo img {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+/* Tablet Responsive Design */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .body-welcome {
+        padding: 8px;
+    }
+    
+    .welcome-container {
+        padding: 1.5rem;
+    }
+    
+    .welcome-header {
+        margin-bottom: 3rem;
+        padding: 1.5rem 0;
+    }
+    
+    .welcome-main {
+        gap: 3rem;
+        margin-top: -1rem;
+        display: grid;
+    }
+    
+    .welcome-right {
+        margin-top: -8rem;
+        align-items: center;
+    }
+    
+    .welcome-header-container {
+        gap: 1.5rem;
+        display: flex !important;
+    }
+    
+    .welcome-logo img {
+        width: 110px;
+        height: 110px;
+    }
+    
+    .welcome-title-img {
+        width: 400px;
+    }
+    
+    .welcome-subtitle {
+        font-size: 1.3rem;
+    }
+    
+    .welcome-description p {
+        font-size: 1.15rem;
+    }
+    
+    .welcome-features {
+        gap: 1.2rem;
+       
+    }
+
+    /* Tablet Lottie sizing */
+    .lottie-building {
+        max-width: 520px;
+        height: 360px;
+        margin-bottom: 18px;
+    }
+    
+    .feature-section {
+        padding: 1.3rem;
+    }
+    
+    .feature-title {
+        font-size: 1.3rem;
+    }
+    
+    .feature-description {
+        font-size: 1rem;
+    }
+    
+    .btn {
+        padding: 1rem 2.2rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .body-welcome {
+        padding: 5px;
+    }
+    
+    .welcome-container {
+        padding: 1rem;
+    }
+    
+    .welcome-header {
+        margin-bottom: 2rem;
+        padding: 1rem 0;
+    }
+    
+    .welcome-main {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-top: 0;
+    }
+    
+    .welcome-left {
+        gap: 1.5rem;
+    }
+    
+    .welcome-right {
+        margin-top: 0;
+    }
+
+    .lottie-building {
+        max-width: 420px;
+        height: 300px;
+    }
+    
+    .welcome-header-container {
+        margin: auto;   
+        display: flex !important;
+    }
+    
+    .welcome-logo img {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .welcome-title-img {
+        width: 350px;
+        max-width: 100%;
+    }
+    
+    .welcome-subtitle {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+    
+    .welcome-description {
+        text-align: center;
+    }
+    
+    .welcome-description p {
+        font-size: 1.1rem;
+    }
+    
+    .welcome-features {
+        gap: 1rem;
+        margin-top: -3rem !important;
+    }
+    
+    .feature-section {
+        padding: 1.5rem 1rem;
+        text-align: center;
+    }
+    
+    .feature-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .welcome-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 280px;
+        margin: 0;
+        padding: 1rem 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .body-welcome {
+        padding: 2px;
+    }
+   
+    .welcome-container {
+        padding: 0.5rem;
+    }
+    
+    .welcome-header {
+        margin-bottom: 1.5rem;
+        padding: 0.5rem 0;
+    }
+    
+    .welcome-main {
+        gap: 1.5rem;
+        margin-top: 0;
+    }
+    
+    .welcome-right {
+        margin-top: 0;
+    }
+
+    .lottie-building {
+        max-width: 360px;
+        height: 220px;
+        margin-bottom: 16px;
+    }
+    
+    .welcome-logo img {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .welcome-title-img {
+        width: 280px;
+        max-width: 100%;
+    }
+    
+    .welcome-subtitle {
+        font-size: 1.1rem;
+        padding: 0 1rem;
+    }
+    
+    .welcome-description p {
+        font-size: 1rem;
+        padding: 0 0.5rem;
+    }
+    
+    .welcome-left {
+        gap: 1rem;
+    }
+    
+    .feature-section {
+        padding: 1rem;
+        margin: 0 0.5rem;
+    }
+    
+    .feature-title {
+        font-size: 1.2rem;
+    }
+    
+    .feature-description {
+        font-size: 0.9rem;
+    }
+    
+    .btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+        max-width: 250px;
+    }
+}
+
+/* Subtle Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.welcome-header {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.welcome-description {
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.feature-section {
+    animation: fadeInUp 0.8s ease-out;
+    animation-fill-mode: both;
+}
+
+.feature-section:nth-child(1) { animation-delay: 0.3s; }
+.feature-section:nth-child(2) { animation-delay: 0.4s; }
+.feature-section:nth-child(3) { animation-delay: 0.5s; }
+
+.welcome-actions {
+    animation: fadeInUp 0.8s ease-out 0.6s both;
+}

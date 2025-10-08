@@ -1,0 +1,14 @@
+{
+    "name": "obo/excel-processor",
+    "description": "Excel file processing application",
+    "type": "project",
+    "require": {
+        "php": ">=7.4",
+        "phpoffice/phpspreadsheet": "^1.29"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
