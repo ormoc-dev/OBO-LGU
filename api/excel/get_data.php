@@ -91,18 +91,30 @@ try {
     $stmt->execute([$importId]);
     $totalRows = $stmt->fetch()['total'];
 
-    // Get data rows (avoid placeholders for LIMIT/OFFSET)
-    $limitInt = (int) $limit;
-    $offsetInt = (int) $offset;
-    $stmt = $pdo->prepare("
-        SELECT row_number, column_name, column_value
-        FROM excel_import_data 
-        WHERE import_id = ? 
-        ORDER BY row_number, column_name
-        LIMIT $limitInt OFFSET $offsetInt
-    ");
-    $stmt->execute([$importId]);
-    $rawData = $stmt->fetchAll();
+    // Get data rows - if limit is very high (like 99999), get all data without pagination
+    if ($limit >= 99999) {
+        $stmt = $pdo->prepare("
+            SELECT row_number, column_name, column_value
+            FROM excel_import_data 
+            WHERE import_id = ? 
+            ORDER BY row_number, column_name
+        ");
+        $stmt->execute([$importId]);
+        $rawData = $stmt->fetchAll();
+    } else {
+        // Use pagination for smaller requests
+        $limitInt = (int) $limit;
+        $offsetInt = (int) $offset;
+        $stmt = $pdo->prepare("
+            SELECT row_number, column_name, column_value
+            FROM excel_import_data 
+            WHERE import_id = ? 
+            ORDER BY row_number, column_name
+            LIMIT $limitInt OFFSET $offsetInt
+        ");
+        $stmt->execute([$importId]);
+        $rawData = $stmt->fetchAll();
+    }
 
     // Transform data into rows
     $rows = [];

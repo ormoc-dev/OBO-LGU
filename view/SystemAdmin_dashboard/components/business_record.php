@@ -3,43 +3,26 @@
 ?>
 
 <div class="business-records-container">
-    <!-- Tab Navigation -->
-    <div class="tab-navigation">
-        <div class="tab-buttons">
-            <button class="tab-button active" onclick="switchTab('business-record')" id="businessRecordTab">
+    <!-- Header Section -->
+    <div class="page-header">
+        <div class="header-content">
+            <h2 class="page-title">
                 <i class="fas fa-building"></i>
-                Business Record
+                Business Records
+            </h2>
+            <p class="page-subtitle">Manage and track business inspection records</p>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-secondary" onclick="openImportModal()">
+                <i class="fas fa-upload"></i>
+                Import Excel
             </button>
-            <button class="tab-button" onclick="switchTab('annual-inspection')" id="annualInspectionTab">
-                <i class="fas fa-clipboard-check"></i>
-                Annual Inspection Form
+            <button class="btn btn-primary" onclick="openAddBusinessModal()">
+                <i class="fas fa-plus"></i>
+                Add Business
             </button>
         </div>
     </div>
-
-    <!-- Business Record Tab Content -->
-    <div id="business-record-content" class="tab-content active">
-        <!-- Header Section -->
-        <div class="page-header">
-            <div class="header-content">
-                <h2 class="page-title">
-                    <i class="fas fa-building"></i>
-                    Business Records
-                </h2>
-                <p class="page-subtitle">Manage and track business inspection records</p>
-            </div>
-            <div class="header-actions">
-                <button class="btn btn-secondary" onclick="openImportModal()">
-                    <i class="fas fa-upload"></i>
-                    Import Excel
-                </button>
-                
-                <button class="btn btn-primary" onclick="openAddBusinessModal()">
-                    <i class="fas fa-plus"></i>
-                    Add Business
-                </button>
-            </div>
-        </div>
 
 
     <!-- Statistics Cards -->
@@ -163,117 +146,6 @@
             </div>
         </div>
     </div>
-    </div>
-
-    <!-- Annual Inspection Form Tab Content -->
-    <div id="annual-inspection-content" class="tab-content">
-        <!-- Header Section -->
-        <div class="page-header">
-            <div class="header-content">
-                <h2 class="page-title">
-                    <i class="fas fa-clipboard-check"></i>
-                    Annual Inspection Form
-                </h2>
-                <p class="page-subtitle">Manage annual business inspection forms and compliance tracking</p>
-            </div>
-            <div class="header-actions">
-                <button class="btn btn-primary" onclick="openAddInspectionModal()">
-                    <i class="fas fa-plus"></i>
-                    Add Inspection
-                </button>
-            </div>
-        </div>
-
-        <!-- Inspection Statistics Cards -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-clipboard-check"></i>
-                </div>
-                <div class="stat-content">
-                    <h3 class="stat-number" id="totalInspections">0</h3>
-                    <p class="stat-label">Total Inspections</p>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <div class="stat-content">
-                    <h3 class="stat-number" id="completedInspections">0</h3>
-                    <p class="stat-label">Completed</p>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-clock"></i>
-                </div>
-                <div class="stat-content">
-                    <h3 class="stat-number" id="pendingInspections">0</h3>
-                    <p class="stat-label">Pending</p>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-exclamation-triangle"></i>
-                </div>
-                <div class="stat-content">
-                    <h3 class="stat-number" id="overdueInspections">0</h3>
-                    <p class="stat-label">Overdue</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Inspection Records Table -->
-        <div class="table-container">
-            <div class="table-header">
-                <h3>Inspection Records</h3>
-                <div class="table-actions">
-                    <div class="search-input" style="border: none !important;">
-                        <i class="fas fa-search"></i>
-                        <input type="text" id="inspectionSearch" placeholder="Search by Business ID, Inspector, Date, or Status..." autocomplete="off">
-                        <button type="button" class="search-clear" id="inspectionSearchClear" onclick="clearInspectionSearch()" style="display: none;">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                    <button class="btn btn-secondary" onclick="exportInspections()">
-                        <i class="fas fa-download"></i>
-                        Export
-                    </button>
-                    <button class="btn btn-secondary" onclick="refreshInspections()">
-                        <i class="fas fa-sync"></i>
-                        Refresh
-                    </button>
-                </div>
-            </div>
-
-            <div class="table-wrapper">
-                <table class="business-table" id="inspectionTable">
-                    <thead>
-                        <tr>
-                            <th>Inspection ID</th>
-                            <th>Business Name</th>
-                            <th>Inspector</th>
-                            <th>Inspection Date</th>
-                            <th>Status</th>
-                            <th>Compliance Score</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="loading-row">
-                            <td colspan="7">
-                                <div class="loading-spinner">
-                                    <i class="fas fa-spinner fa-spin"></i>
-                                    Loading inspection records...
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 
 </div>
 
@@ -341,7 +213,39 @@
     </div>
 </div>
 
-
+<!-- Dynamic Data Modal -->
+<div id="dynamicDataModal" class="modal">
+    <div class="modal-content large-modal">
+        <div class="modal-header">
+            <h3 id="dynamicModalTitle">Imported Data</h3>
+            <button class="modal-close" onclick="closeDynamicDataModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="data-controls">
+                <div class="search-controls">
+                    <input type="text" id="dataSearch" placeholder="Search data..." class="search-input">
+                    <button class="btn btn-secondary" onclick="refreshData()">
+                        <i class="fas fa-sync"></i>
+                        Refresh
+                    </button>
+                </div>
+                <div class="pagination-controls">
+                    <button class="btn btn-sm" id="prevPage" onclick="changePage(-1)">Previous</button>
+                    <span id="pageInfo">Page 1 of 1</span>
+                    <button class="btn btn-sm" id="nextPage" onclick="changePage(1)">Next</button>
+                </div>
+            </div>
+            <div class="dynamic-table-container">
+                <table class="dynamic-table" id="dynamicTable">
+                    <thead id="dynamicTableHead"></thead>
+                    <tbody id="dynamicTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Add Business Modal -->
 <div id="addBusinessModal" class="modal">
@@ -406,7 +310,6 @@
     document.addEventListener('DOMContentLoaded', function() {
         loadBusinessStats();
         loadBusinessRecords();
-        loadInspectionStats();
 
         // Setup search input visual feedback
         function setupSearchVisualFeedback() {
@@ -558,12 +461,12 @@
             statCard.classList.add('updating');
             setTimeout(() => {
                 statCard.classList.remove('updating');
-            }, 30);
+            }, 600);
         }
 
         const currentValue = parseInt(element.textContent.replace(/,/g, '')) || 0;
         const increment = targetValue > currentValue ? 1 : -1;
-        const duration = 0; // 1 second
+        const duration = 1000; // 1 second
         const steps = Math.abs(targetValue - currentValue);
         const stepDuration = steps > 0 ? duration / steps : 0;
 
@@ -2051,114 +1954,6 @@
         }
     }
 
-    // Tab Switching Functions
-    function switchTab(tabName) {
-        // Hide all tab contents
-        const allTabContents = document.querySelectorAll('.tab-content');
-        allTabContents.forEach(content => {
-            content.classList.remove('active');
-        });
-
-        // Remove active class from all tab buttons
-        const allTabButtons = document.querySelectorAll('.tab-button');
-        allTabButtons.forEach(button => {
-            button.classList.remove('active');
-        });
-
-        // Show selected tab content
-        const selectedContent = document.getElementById(tabName + '-content');
-        if (selectedContent) {
-            selectedContent.classList.add('active');
-        }
-
-        // Add active class to selected tab button
-        const selectedButton = document.getElementById(tabName + 'Tab');
-        if (selectedButton) {
-            selectedButton.classList.add('active');
-        }
-
-        // Load data for the selected tab
-        if (tabName === 'business-record') {
-            loadBusinessStats();
-            loadBusinessRecords();
-        } else if (tabName === 'annual-inspection') {
-            loadInspectionStats();
-            loadInspectionRecords();
-        }
-    }
-
-    // Inspection Functions
-    function loadInspectionStats() {
-        // Simulate loading inspection stats
-        animateStatUpdate('totalInspections', 0);
-        animateStatUpdate('completedInspections', 0);
-        animateStatUpdate('pendingInspections', 0);
-        animateStatUpdate('overdueInspections', 0);
-    }
-
-    function loadInspectionRecords() {
-        const tbody = document.querySelector('#inspectionTable tbody');
-        if (!tbody) return;
-
-        // Show loading state
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="7">
-                    <div class="loading-spinner">
-                        <i class="fas fa-spinner fa-spin"></i>
-                        Loading inspection records...
-                    </div>
-                </td>
-            </tr>
-        `;
-
-        // Simulate loading inspection data
-        setTimeout(() => {
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="7" style="text-align: center; padding: 40px; color: #64748b; font-style: italic;">
-                        <i class="fas fa-clipboard-check" style="margin-right: 8px;"></i>
-                        No inspection records found. Click "Add Inspection" to create your first inspection record.
-                    </td>
-                </tr>
-            `;
-        }, 1000);
-    }
-
-    function openInspectionImportModal() {
-        showNotification('Inspection import feature coming soon!', 'info');
-    }
-
-    function openAddInspectionModal() {
-        showNotification('Add inspection feature coming soon!', 'info');
-    }
-
-    function exportInspections() {
-        showNotification('Export inspections feature coming soon!', 'info');
-    }
-
-    function refreshInspections() {
-        loadInspectionRecords();
-        loadInspectionStats();
-        showNotification('Inspection records refreshed!', 'success');
-    }
-
-    function clearInspectionSearch() {
-        const searchInput = document.getElementById('inspectionSearch');
-        const clearButton = document.getElementById('inspectionSearchClear');
-        
-        if (searchInput) {
-            searchInput.value = '';
-            searchInput.focus();
-        }
-        
-        if (clearButton) {
-            clearButton.style.display = 'none';
-        }
-        
-        showNotification('Inspection search cleared', 'info');
-    }
-
     // Close modals when clicking outside
     window.onclick = function(event) {
         const addBusinessModal = document.getElementById('addBusinessModal');
@@ -2176,110 +1971,3 @@
         }
     }
 </script>
-
-<style>
-/* Tab Navigation Styles */
-.tab-navigation {
-    background: #f8fafc;
-    border-bottom: 1px solid #e2e8f0;
-    margin-bottom: 20px;
-    border-radius: 8px 8px 0 0;
-}
-
-.tab-buttons {
-    display: flex;
-    gap: 0;
-}
-
-.tab-button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 15px 24px;
-    background: transparent;
-    border: none;
-    border-bottom: 3px solid transparent;
-    color: #64748b;
-    font-weight: 500;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    position: relative;
-    min-width: 200px;
-    justify-content: center;
-}
-
-.tab-button:hover {
-    background: #f1f5f9;
-    color: #334155;
-}
-
-.tab-button.active {
-    color: #3b82f6;
-    background: white;
-    border-bottom-color: #3b82f6;
-    font-weight: 600;
-}
-
-.tab-button i {
-    font-size: 16px;
-}
-
-/* Tab Content Styles */
-.tab-content {
-    display: none;
-}
-
-.tab-content.active {
-    display: block;
-    animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsive Tab Design */
-@media (max-width: 768px) {
-    .tab-buttons {
-        flex-direction: column;
-    }
-    
-    .tab-button {
-        min-width: auto;
-        width: 100%;
-        border-bottom: none;
-        border-right: 3px solid transparent;
-        justify-content: flex-start;
-    }
-    
-    .tab-button.active {
-        border-right-color: #3b82f6;
-        border-bottom-color: transparent;
-    }
-}
-
-/* Enhanced Tab Button Hover Effects */
-.tab-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05));
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    border-radius: 6px 6px 0 0;
-}
-
-.tab-button:hover::before {
-    opacity: 1;
-}
-
-.tab-button.active::before {
-    opacity: 1;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(59, 130, 246, 0.08));
-}
-</style>

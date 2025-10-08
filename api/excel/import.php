@@ -393,6 +393,19 @@ function processExcelFileWithPhpSpreadsheet($filepath, $importId, $pdo)
             $rowData = $worksheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, null, true, true, true);
             $rowValues = array_values($rowData[$row]); // Normalize to numeric indices like header
 
+            // Skip completely empty rows
+            $hasData = false;
+            foreach ($rowValues as $value) {
+                if (!empty(trim($value))) {
+                    $hasData = true;
+                    break;
+                }
+            }
+            
+            if (!$hasData) {
+                continue; // Skip empty rows
+            }
+
             $totalRows++;
 
             // Store sample data (first 5 rows)

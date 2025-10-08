@@ -63,12 +63,19 @@ try {
     $stmt->execute([$importId]);
     $totalRows = (int) ($stmt->fetch()['total'] ?? 0);
 
-    // Rows (avoid placeholders for LIMIT/OFFSET)
-    $limitInt = (int) $limit;
-    $offsetInt = (int) $offset;
-    $stmt = $pdo->prepare("\n        SELECT row_number, column_name, column_value\n        FROM excel_import_data\n        WHERE import_id = ?\n        ORDER BY row_number, column_name\n        LIMIT $limitInt OFFSET $offsetInt\n    ");
-    $stmt->execute([$importId]);
-    $rawData = $stmt->fetchAll();
+    // Rows - if limit is very high (like 99999), get all data without pagination
+    if ($limit >= 99999) {
+        $stmt = $pdo->prepare("\n        SELECT row_number, column_name, column_value\n        FROM excel_import_data\n        WHERE import_id = ?\n        ORDER BY row_number, column_name\n    ");
+        $stmt->execute([$importId]);
+        $rawData = $stmt->fetchAll();
+    } else {
+        // Use pagination for smaller requests
+        $limitInt = (int) $limit;
+        $offsetInt = (int) $offset;
+        $stmt = $pdo->prepare("\n        SELECT row_number, column_name, column_value\n        FROM excel_import_data\n        WHERE import_id = ?\n        ORDER BY row_number, column_name\n        LIMIT $limitInt OFFSET $offsetInt\n    ");
+        $stmt->execute([$importId]);
+        $rawData = $stmt->fetchAll();
+    }
 
     // Pivot into row objects
     $rows = [];
