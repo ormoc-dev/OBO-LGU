@@ -73,7 +73,7 @@
         <div class="table-header">
             <h3>Business Records</h3>
             <div class="table-actions">
-            <div class="search-input" style="border: none !important;">
+                <div class="search-input" style="border: none !important; background: none !important;">
                     <i class="fas fa-search"></i>
                     <input type="text" id="businessSearch" placeholder="Search by Business ID, Name, Address, City, or any data..." autocomplete="off" oninput="filterBusinesses();">
                     <button type="button" class="search-clear" id="searchClear" onclick="clearSearch()" style="display: none;">
@@ -294,6 +294,7 @@
     let pageSize = 25;
     let totalRecords = 0;
     let allData = []; // Store all data for client-side pagination
+    let originalData = []; // Store original unfiltered data for statistics
     let searchTimeout = null; // For debouncing search
     let suggestionsTimeout = null; // For debouncing suggestions
     let searchSuggestions = []; // Store search suggestions
@@ -376,9 +377,11 @@
     }
 
     function calculateDynamicStats() {
-        // Use the stored allData array instead of DOM elements for more accurate stats
-        if (!allData || allData.length === 0) {
-            // Fallback to DOM calculation if allData is not available
+        // Use the original unfiltered data for statistics
+        const dataToUse = originalData.length > 0 ? originalData : allData;
+        
+        if (!dataToUse || dataToUse.length === 0) {
+            // Fallback to DOM calculation if no data is available
             const tableRows = document.querySelectorAll('#businessTable tbody tr');
             const totalRows = Array.from(tableRows).filter(row =>
                 !row.classList.contains('loading-row') &&
@@ -395,14 +398,14 @@
             return;
         }
 
-        const totalBusinesses = allData.length;
+        const totalBusinesses = dataToUse.length;
 
         // Calculate stats based on data patterns
         let activeCount = 0;
         let pendingCount = 0;
         let expiredCount = 0;
 
-        allData.forEach(row => {
+        dataToUse.forEach(row => {
             const rowData = Object.values(row).map(value => 
                 (value || '').toString().toLowerCase().trim()
             );
@@ -542,16 +545,31 @@
         if (!searchTerm) {
             console.log('No search term, restoring all data');
             
-            // If we have stored data, re-render it with virtual scrolling
-            if (allData && allData.length > 0) {
+            // If we have stored original data, restore it
+            if (originalData && originalData.length > 0) {
+                allData = [...originalData]; // Restore original data
+                totalRecords = originalData.length;
+                
+                // Remove search results styling
+                const table = document.querySelector('#businessTable');
+                if (table) {
+                    table.classList.remove('search-results');
+                }
+                
+                // Remove search results info
+                const searchInfo = document.querySelector('.search-results-info');
+                if (searchInfo) {
+                    searchInfo.remove();
+                }
+                
                 const thead = document.querySelector('#businessTable thead tr');
                 const columns = Array.from(thead.querySelectorAll('th')).slice(0, -1).map(th => ({
                     column_name: th.textContent
                 }));
-                renderMainTableWithPagination(columns, allData, thead, tbody);
+                renderMainTableWithPagination(columns, originalData, thead, tbody);
                 updatePaginationControls();
                 
-                // Recalculate stats
+                // Recalculate stats (will use originalData)
                 setTimeout(() => {
                     calculateDynamicStats();
                 }, 100);
@@ -563,9 +581,10 @@
         const filteredData = filterDataClientSide(allData, searchTerm);
         
         if (filteredData.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 40px; color: #64748b; font-style: italic;">
-                <i class="fas fa-search" style="margin-right: 8px;"></i>
-                No matching records found for "${searchTerm}"
+            tbody.innerHTML = `<tr class="no-results-row"><td colspan="6">
+                <i class="fas fa-search"></i>
+                <div style="margin-top: 8px;">No matching records found for "${searchTerm}"</div>
+                <div style="font-size: 12px; margin-top: 4px; opacity: 0.8;">Try adjusting your search terms</div>
             </td></tr>`;
             return;
         }
@@ -576,14 +595,23 @@
             column_name: th.textContent
         }));
         
-        // Update global data for virtual scrolling
+        // Update global data for virtual scrolling (keep originalData unchanged)
         allData = filteredData;
         totalRecords = filteredData.length;
         startIndex = 0;
         endIndex = Math.min(visibleRows, totalRecords);
         
+        // Add search results styling to table
+        const table = document.querySelector('#businessTable');
+        if (table) {
+            table.classList.add('search-results');
+        }
+        
         renderVirtualRows(columns, tbody);
         updatePaginationControls();
+        
+        // Add search results info
+        addSearchResultsInfo(searchTerm, filteredData.length, filteredData.length);
         
         console.log('Search complete. Showing', filteredData.length, 'matching rows');
     }
@@ -896,6 +924,7 @@
 
         // Store all data for pagination and search
         allData = rows;
+        originalData = [...rows]; // Store a copy of original data for statistics
         totalRecords = rows.length;
         totalPages = Math.ceil(totalRecords / pageSize);
 
@@ -1032,6 +1061,7 @@
 
         // Store data globally for virtual scrolling
         allData = allRows;
+        originalData = [...allRows]; // Store a copy of original data for statistics
         totalRecords = allRows.length;
         
         // Initialize virtual scrolling
