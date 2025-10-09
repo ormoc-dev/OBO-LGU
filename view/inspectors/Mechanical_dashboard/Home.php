@@ -1,60 +1,46 @@
 <?php
+// Start session and get user data
+session_start();
 
+// Get user data from session - using your actual authentication system
+require_once '../../../api/auth/auth_helper.php';
+
+// Check if user is logged in
+requireLogin();
+
+// Get current user data from session
+$user = getCurrentUser();
+
+// If no user data, redirect to login
+if (!$user) {
+    header('Location: /OBO-LGU/view/auth/Login.php');
+    exit;
+}
+
+// For testing - you can change this to test different roles
+// $user['role'] = 'mechanical'; // Change to 'electrical/electronics', 'civil/structural', etc.
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mechanical Dashboard - LGU Annual Inspection System</title>
+    <title></title>
     <link rel="icon" type="image/png" href="../../../images/logo.png">
     <link rel="stylesheet" href="../../../css/main.css">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
 <body>
+
     <div class="mech-wrapper">
-        <header class="mech-topbar">
-            <div class="topbar-left">
-                <img src="../../../images/logo.png" alt="LGU" class="logo">
-                <h1>Mechanical</h1>
-            </div>
-            <div class="topbar-right">
-                <span class="user"><?php echo htmlspecialchars($user['username'] ?? 'Inspector'); ?></span>
-            </div>
-        </header>
-
+        <?php include '../../layouts/inspectors_header.php'; ?>
+        
         <main class="mech-content" id="content"></main>
-
-        <!-- Bottom Navbar with actions -->
-        <nav class="mech-bottomnav">
-            <button class="nav-btn" data-action="home">
-                <i class="fas fa-home"></i>
-                <span>Home</span>
-            </button>
-            <button class="nav-btn primary" data-action="start">
-                <i class="fas fa-play"></i>
-                <span>Start</span>
-            </button>
-            <button class="nav-btn" data-action="scan">
-                <i class="fas fa-qrcode"></i>
-                <span>Scan</span>
-            </button>
-            <button class="nav-btn" data-action="reports">
-                <i class="fas fa-file-alt"></i>
-                <span>Reports</span>
-            </button>
-            <button class="nav-btn" data-action="profile">
-                <i class="fas fa-user"></i>
-                <span>Profile</span>
-            </button>
-        </nav>
+        
+        <?php include '../../layouts/inspectors_nav.php'; ?>
     </div>
 
     <script>
@@ -161,43 +147,256 @@
                                 .catch(err => console.error('Scheduled error', err));
                         }
                         if (target === 'start') {
-                            const form = document.getElementById('startInspectionForm');
-                            if (form) {
-                                form.addEventListener('submit', function(e) {
-                                    e.preventDefault();
-                                    const payload = {
-                                        site: document.getElementById('site').value,
-                                        inspection_type: document.getElementById('inspectionType').value,
-                                        schedule: document.getElementById('schedule').value,
-                                        notes: document.getElementById('notes').value
-                                    };
-                                    const btn = form.querySelector('.btn-primary');
-                                    const original = btn.innerHTML;
-                                    btn.disabled = true;
-                                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
-                                    fetch('../../../api/mechanical/create.php', {
-                                            method: 'POST',
-                                            headers: {
-                                                'Content-Type': 'application/json'
+                            // Wait a bit for the component to fully load
+                            setTimeout(() => {
+                                const form = document.getElementById('startInspectionForm');
+                                if (form) {
+                                    form.addEventListener('submit', function(e) {
+                                        e.preventDefault();
+                                        
+                                        // Collect all form data including fee calculation
+                                        const payload = {
+                                            owner: document.getElementById('owner')?.value || '',
+                                            location: document.getElementById('location')?.value || '',
+                                            businessName: document.getElementById('businessName')?.value || '',
+                                            applicationType: document.getElementById('applicationType')?.value || '',
+                                            lcNumber: document.getElementById('lcNumber')?.value || '',
+                                            mbNumber: document.getElementById('mbNumber')?.value || '',
+                                            applicationDate: document.getElementById('applicationDate')?.value || '',
+                                            returnDate: document.getElementById('returnDate')?.value || '',
+                                            timeIn: document.getElementById('timeIn')?.value || '',
+                                            timeOut: document.getElementById('timeOut')?.value || '',
+                                            assessment: document.getElementById('assessment')?.value || '',
+                                            remarks: document.getElementById('remarks')?.value || '',
+                                            notes: document.getElementById('notes')?.value || '',
+                                            calculatedFee: document.getElementById('calculatedFee')?.value || '0.00',
+                                            // Fee details
+                                            refrigeration: {
+                                                tons: document.getElementById('refrigerationTons')?.value || '',
+                                                category: document.getElementById('refrigerationCategory')?.value || ''
                                             },
-                                            body: JSON.stringify(payload)
-                                        })
-                                        .then(r => r.json())
-                                        .then(res => {
-                                            if (!res.success) throw new Error(res.message || 'Failed');
-                                            alert('Inspection created');
-                                            navigateMech('dashboard');
-                                        })
-                                        .catch(err => {
-                                            console.error(err);
-                                            alert('Failed to create');
-                                        })
-                                        .finally(() => {
-                                            btn.disabled = false;
-                                            btn.innerHTML = original;
-                                        });
-                                });
-                            }
+                                            airConditioning: {
+                                                type: document.getElementById('acType')?.value || '',
+                                                units: document.getElementById('acUnits')?.value || ''
+                                            },
+                                            ventilation: {
+                                                kw: document.getElementById('ventilationKw')?.value || '',
+                                                category: document.getElementById('ventilationCategory')?.value || ''
+                                            },
+                                            escalators: {
+                                                type: document.getElementById('escalatorType')?.value || '',
+                                                units: document.getElementById('escalatorUnits')?.value || '',
+                                                meters: document.getElementById('escalatorMeters')?.value || ''
+                                            },
+                                            elevators: {
+                                                type: document.getElementById('elevatorType')?.value || '',
+                                                units: document.getElementById('elevatorUnits')?.value || '',
+                                                landings: document.getElementById('elevatorLandings')?.value || ''
+                                            }
+                                        };
+                                        
+                                        const btn = form.querySelector('.btn-primary');
+                                        const original = btn.innerHTML;
+                                        btn.disabled = true;
+                                        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+                                        
+                                        console.log('Submitting form data:', payload);
+                                        
+                                        fetch('../../../api/mechanical/create.php', {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json'
+                                                },
+                                                body: JSON.stringify(payload)
+                                            })
+                                            .then(r => r.json())
+                                            .then(res => {
+                                                if (!res.success) throw new Error(res.message || 'Failed');
+                                                alert('Inspection created successfully!');
+                                                navigateMech('dashboard');
+                                            })
+                                            .catch(err => {
+                                                console.error(err);
+                                                alert('Failed to create inspection');
+                                            })
+                                            .finally(() => {
+                                                btn.disabled = false;
+                                                btn.innerHTML = original;
+                                            });
+                                    });
+                                }
+                                
+                                // Initialize fee calculation functions after component loads
+                                setTimeout(() => {
+                                    // Define calculateFees function
+                                    window.calculateFees = function() {
+                                        let totalFee = 0;
+                                        
+                                        try {
+                                            // Refrigeration & Ice Plant calculation
+                                            const refrigerationTons = parseFloat(document.getElementById('refrigerationTons')?.value) || 0;
+                                            const refrigerationCategory = document.getElementById('refrigerationCategory')?.value;
+                                            
+                                            if (refrigerationTons > 0 && refrigerationCategory) {
+                                                switch(refrigerationCategory) {
+                                                    case 'up_to_100':
+                                                        totalFee += refrigerationTons * 25.00; // Php 25.00 per ton
+                                                        break;
+                                                    case '100_to_150':
+                                                        totalFee += refrigerationTons * 20.00; // Php 20.00 per ton
+                                                        break;
+                                                    case '150_to_300':
+                                                        totalFee += refrigerationTons * 15.00; // Php 15.00 per ton
+                                                        break;
+                                                    case '300_to_500':
+                                                        totalFee += refrigerationTons * 10.00; // Php 10.00 per ton
+                                                        break;
+                                                    case 'above_500':
+                                                        totalFee += refrigerationTons * 5.00; // Php 5.00 per ton
+                                                        break;
+                                                }
+                                            }
+                                            
+                                            // Air Conditioning calculation
+                                            const acType = document.getElementById('acType')?.value;
+                                            const acUnits = parseFloat(document.getElementById('acUnits')?.value) || 0;
+                                            
+                                            if (acUnits > 0 && acType) {
+                                                if (acType === 'window') {
+                                                    totalFee += acUnits * 40.00; // Php 40.00 per unit
+                                                } else if (acType === 'packaged') {
+                                                    // For packaged AC, we need to handle the tiered pricing
+                                                    let acFee = 0;
+                                                    if (acUnits <= 100) {
+                                                        acFee = acUnits * 25.00; // First 100 tons at Php 25.00
+                                                    } else if (acUnits <= 150) {
+                                                        acFee = 100 * 25.00 + (acUnits - 100) * 20.00; // First 100 at 25, next 50 at 20
+                                                    } else {
+                                                        acFee = 100 * 25.00 + 50 * 20.00 + (acUnits - 150) * 8.00; // Above 150 at 8
+                                                    }
+                                                    totalFee += acFee;
+                                                }
+                                            }
+                                            
+                                            // Mechanical Ventilation calculation
+                                            const ventilationKw = parseFloat(document.getElementById('ventilationKw')?.value) || 0;
+                                            const ventilationCategory = document.getElementById('ventilationCategory')?.value;
+                                            
+                                            if (ventilationKw > 0 && ventilationCategory) {
+                                                switch(ventilationCategory) {
+                                                    case 'up_to_1':
+                                                        totalFee += ventilationKw * 10.00; // Php 10.00 per kW
+                                                        break;
+                                                    case '1_to_7_5':
+                                                        totalFee += ventilationKw * 50.00; // Php 50.00 per kW
+                                                        break;
+                                                    case 'above_7_5':
+                                                        totalFee += ventilationKw * 20.00; // Php 20.00 per kW
+                                                        break;
+                                                }
+                                            }
+                                            
+                                            // Escalators & Moving Walks calculation
+                                            const escalatorType = document.getElementById('escalatorType')?.value;
+                                            const escalatorUnits = parseFloat(document.getElementById('escalatorUnits')?.value) || 0;
+                                            const escalatorMeters = parseFloat(document.getElementById('escalatorMeters')?.value) || 0;
+                                            
+                                            if (escalatorUnits > 0 && escalatorType) {
+                                                switch(escalatorType) {
+                                                    case 'escalator':
+                                                        totalFee += escalatorUnits * 120.00; // Php 120.00 per unit
+                                                        break;
+                                                    case 'funicular':
+                                                        totalFee += escalatorUnits * 50.00; // Php 50.00 per kW
+                                                        break;
+                                                    case 'cable_car':
+                                                        totalFee += escalatorUnits * 25.00; // Php 25.00 per kW
+                                                        break;
+                                                }
+                                                
+                                                if (escalatorMeters > 0) {
+                                                    if (escalatorType === 'funicular') {
+                                                        totalFee += escalatorMeters * 10.00; // Php 10.00 per lineal meter
+                                                    } else if (escalatorType === 'cable_car') {
+                                                        totalFee += escalatorMeters * 2.00; // Php 2.00 per lineal meter
+                                                    }
+                                                }
+                                            }
+                                            
+                                            // Elevators calculation
+                                            const elevatorType = document.getElementById('elevatorType')?.value;
+                                            const elevatorUnits = parseFloat(document.getElementById('elevatorUnits')?.value) || 0;
+                                            const elevatorLandings = parseFloat(document.getElementById('elevatorLandings')?.value) || 0;
+                                            
+                                            if (elevatorUnits > 0 && elevatorType) {
+                                                let baseFee = 0;
+                                                switch(elevatorType) {
+                                                    case 'passenger':
+                                                        baseFee = 500.00; // Php 500.00 per unit
+                                                        break;
+                                                    case 'freight':
+                                                        baseFee = 400.00; // Php 400.00 per unit
+                                                        break;
+                                                    case 'dumbwaiter':
+                                                        baseFee = 50.00; // Php 50.00 per unit
+                                                        break;
+                                                    case 'construction':
+                                                        baseFee = 400.00; // Php 400.00 per unit
+                                                        break;
+                                                    case 'car':
+                                                        baseFee = 500.00; // Php 500.00 per unit
+                                                        break;
+                                                }
+                                                
+                                                totalFee += elevatorUnits * baseFee;
+                                                
+                                                if (elevatorLandings > 0) {
+                                                    totalFee += elevatorLandings * 50.00; // Php 50.00 per landing above 5
+                                                }
+                                            }
+                                            
+                                            // Update calculated fee display
+                                            const feeInput = document.getElementById('calculatedFee');
+                                            if (feeInput) {
+                                                feeInput.value = totalFee > 0 ? totalFee.toFixed(2) : '';
+                                            }
+                                            
+                                        } catch (error) {
+                                            console.error('Error in calculateFees:', error);
+                                        }
+                                    };
+                                    
+                                    
+                                    // Define resetForm function
+                                    window.resetForm = function() {
+                                        if (confirm('Are you sure you want to reset the form? All data will be lost.')) {
+                                            document.getElementById('startInspectionForm').reset();
+                                            document.getElementById('calculatedFee').value = '';
+                                        }
+                                    };
+                                    
+                                    // Set up event listeners for fee inputs
+                                    const feeInputs = [
+                                        'refrigerationTons', 'refrigerationCategory',
+                                        'acType', 'acUnits',
+                                        'ventilationKw', 'ventilationCategory',
+                                        'escalatorType', 'escalatorUnits', 'escalatorMeters',
+                                        'elevatorType', 'elevatorUnits', 'elevatorLandings'
+                                    ];
+                                    
+                                    feeInputs.forEach(inputId => {
+                                        const element = document.getElementById(inputId);
+                                        if (element) {
+                                            element.addEventListener('input', window.calculateFees);
+                                            element.addEventListener('change', window.calculateFees);
+                                            element.addEventListener('keyup', window.calculateFees);
+                                        }
+                                    });
+                                    
+                                    // Initial calculation
+                                    window.calculateFees();
+                                }, 500);
+                            }, 300);
                         }
                     })
                     .catch(err => {
@@ -211,10 +410,5 @@
             navigateMech('dashboard');
         });
     </script>
-
-    <style>
-
-    </style>
 </body>
-
 </html>

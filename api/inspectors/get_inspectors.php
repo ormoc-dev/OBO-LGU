@@ -4,12 +4,12 @@ require_once '../../database/db.php';
 require_once '../auth/auth_helper.php';
 
 // Check if user is system admin
-requireRole('systemadmin');
+requireRole('admin');
 
 header('Content-Type: application/json');
 
 try {
-    // Get inspectors (users with role electrical, mechanical, or electronics)
+    // Get inspectors (users with inspector roles)
     $stmt = $pdo->prepare("
         SELECT 
             id,
@@ -19,7 +19,7 @@ try {
             created_at,
             updated_at
         FROM users 
-        WHERE role IN ('electrical', 'mechanical', 'electronics')
+        WHERE role IN ('electrical/electronics', 'mechanical', 'civil/structural', 'architectural', 'line/grade', 'sanitary/plumbing')
         ORDER BY name ASC
     ");
     $stmt->execute();

@@ -1,4 +1,4 @@
-USE `lgu_annual_inspection`;
+USE `obo_db`;
 -- Create excel_imports table for tracking import sessions
 CREATE TABLE IF NOT EXISTS excel_imports (
     id INT AUTO_INCREMENT PRIMARY KEY,

@@ -4,7 +4,7 @@ require_once '../../database/db.php';
 require_once '../auth/auth_helper.php';
 
 // Require system admin
-requireRole('systemadmin');
+requireRole('admin');
 
 header('Content-Type: application/json');
 

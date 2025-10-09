@@ -3,7 +3,7 @@
 require_once '../../api/auth/auth_helper.php';
 
 // Require system admin role
-requireRole('systemadmin');
+requireRole('admin');
 
 $user = getCurrentUser();
 ?>

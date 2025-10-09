@@ -4,7 +4,7 @@ require_once '../../database/db.php';
 require_once '../auth/auth_helper.php';
 
 // Check if user is system admin
-requireRole('systemadmin');
+requireRole('admin');
 
 header('Content-Type: application/json');
 
@@ -26,7 +26,7 @@ try {
     }
 
     // Ensure inspector exists
-    $stmt = $pdo->prepare("SELECT id FROM users WHERE id = ? AND role IN ('electrical','mechanical','electronics')");
+    $stmt = $pdo->prepare("SELECT id FROM users WHERE id = ? AND role IN ('electrical/electronics','mechanical','civil/structural','architectural','line/grade','sanitary/plumbing')");
     $stmt->execute([$id]);
     if (!$stmt->fetch()) {
         throw new Exception('Inspector not found');

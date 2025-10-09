@@ -1,10 +1,18 @@
-USE `lgu_annual_inspection`;
+USE `obo_db`;
 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(150) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
-  `role` ENUM('systemadmin', 'admin', 'electronics', 'electrical', 'mechanical') NOT NULL DEFAULT 'admin',
+  `role` ENUM(
+    'admin', 
+    'electrical/electronics', 
+    'architectural', 
+    'mechanical',
+    'civil/structural',
+    'line/grade',
+    'sanitary/plumbing'
+    ) NOT NULL DEFAULT 'admin',
   `status` VARCHAR(30) NOT NULL DEFAULT 'active',
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,

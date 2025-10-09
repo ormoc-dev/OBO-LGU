@@ -83,7 +83,7 @@ function requireAnyRole($roles)
     requireLogin();
 
     if (!hasAnyRole($roles)) {
-        header('Location: ../../index.php');
+        header('Location: /OBO-LGU/index.php');
         exit;
     }
 }
@@ -93,19 +93,22 @@ function requireAnyRole($roles)
  */
 function getDashboardUrl($role)
 {
-    switch ($role) {
-        case 'systemadmin':
-            return '../view/SystemAdmin_dashboard/Home.php';
-        case 'admin':
-            return '../view/admin_dashboard/Home.php';
-        case 'electronics':
-            return '../view/inspectors/Electronics_dashboard/Home.php';
-        case 'electrical':
-            return '../view/inspectors/Electrical_dashboard/Home.php';
+    switch ($role)
+     {
+        case 'civil/structural':
+            return '/OBO-LGU/view/Civil&Structural/Home.php';
+        case 'electrical/electronics':
+            return '/OBO-LGU/view/Electrical&Electronics/Home.php';
+        case 'architectural':
+            return '/OBO-LGU/view/Architectural/Home.php';
         case 'mechanical':
-            return '../view/inspectors/Mechanical_dashboard/Home.php';
+            return '/OBO-LGU/view/inspectors/Mechanical_dashboard/Home.php';
+        case 'line/grade':
+            return '/OBO-LGU/view/inspectors/Line&Grade_dashboard/Home.php';
+        case 'sanitary/plumbing':
+            return '/OBO-LGU/view/inspectors/Sanitary&Plumbing_dashboard/Home.php';
         default:
-            return '../view/admin_dashboard/Home.php';
+            return '/OBO-LGU/view/Admin/Home.php';
     }
 }
 

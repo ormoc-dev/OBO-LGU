@@ -4,7 +4,7 @@ require_once '../../database/db.php';
 require_once '../auth/auth_helper.php';
 
 // Check if user is system admin
-requireRole('systemadmin');
+requireRole('admin');
 
 header('Content-Type: application/json');
 
@@ -42,7 +42,7 @@ try {
     $password = trim($input['password']);
 
     // Validate department
-    $valid_departments = ['electrical', 'mechanical', 'electronics'];
+    $valid_departments = ['electrical/electronics', 'mechanical', 'civil/structural', 'architectural', 'line/grade', 'sanitary/plumbing'];
     if (!in_array($department, $valid_departments)) {
         throw new Exception("Invalid department. Must be one of: " . implode(', ', $valid_departments));
     }
@@ -53,7 +53,7 @@ try {
     }
 
     // Check if inspector with same name already exists
-    $stmt = $pdo->prepare("SELECT id, name, role FROM users WHERE name = ? AND role IN ('electrical', 'mechanical', 'electronics')");
+    $stmt = $pdo->prepare("SELECT id, name, role FROM users WHERE name = ? AND role IN ('electrical/electronics', 'mechanical', 'civil/structural', 'architectural', 'line/grade', 'sanitary/plumbing')");
     $stmt->execute([$name]);
     $existing_inspector = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($existing_inspector) {

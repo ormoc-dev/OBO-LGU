@@ -1,11 +1,11 @@
-USE `lgu_annual_inspection`;
+USE `obo_db`;
 
 -- Seed an initial admin user (password: admin123)
 INSERT INTO `users` (`name`,  `password`, `role`, `status`) VALUES
 (
-    'Systemadmin', 
-    'admin123', 
-    'systemadmin',
+    'admin', 
+    'admin', 
+    'admin',
     'active'
 );
 

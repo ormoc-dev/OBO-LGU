@@ -4,7 +4,7 @@ require_once '../../database/db.php';
 require_once '../auth/auth_helper.php';
 
 // Check if user is system admin
-requireRole('systemadmin');
+requireRole('admin');
 
 header('Content-Type: application/json');
 
@@ -29,13 +29,13 @@ try {
         throw new Exception('Missing required fields');
     }
 
-    $valid_departments = ['electrical', 'mechanical', 'electronics'];
+    $valid_departments = ['electrical/electronics', 'mechanical', 'civil/structural', 'architectural', 'line/grade', 'sanitary/plumbing'];
     if (!in_array($department, $valid_departments, true)) {
         throw new Exception('Invalid department');
     }
 
     // Ensure inspector exists
-    $stmt = $pdo->prepare("SELECT id FROM users WHERE id = ? AND role IN ('electrical','mechanical','electronics')");
+    $stmt = $pdo->prepare("SELECT id FROM users WHERE id = ? AND role IN ('electrical/electronics','mechanical','civil/structural','architectural','line/grade','sanitary/plumbing')");
     $stmt->execute([$id]);
     if (!$stmt->fetch()) {
         throw new Exception('Inspector not found');

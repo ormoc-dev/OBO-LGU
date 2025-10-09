@@ -65,9 +65,12 @@
                     <label for="inspectorDepartment">Department</label>
                     <select id="inspectorDepartment" name="department" required>
                         <option value="">Select Department</option>
-                        <option value="electrical">Electrical</option>
+                        <option value="electrical/electronics">Electrical / Electronics</option>
                         <option value="mechanical">Mechanical</option>
-                        <option value="electronics">Electronics</option>
+                        <option value="civil/structural">Civil / Structural</option>
+                        <option value="line/grade">Line / Grade</option>
+                        <option value="sanitary/plumbing">Sanitary / Plumbing</option>
+                        <option value="architectural">Architectural</option>
                     </select>
                 </div>
                 <div class="form-group">

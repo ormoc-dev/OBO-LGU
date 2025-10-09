@@ -100,18 +100,21 @@ try {
 // Function to determine redirect URL based on user role
 function getRedirectUrl($role)
 {
-    switch ($role) {
-        case 'systemadmin':
-            return '../SystemAdmin_dashboard/Home.php';
-        case 'admin':
-            return '../admin_dashboard/Home.php';
-        case 'electronics':
-            return '../inspectors/Electronics_dashboard/Home.php';
-        case 'electrical':
-            return '../inspectors/Elelctrical_dashboard/Home.php';
+    switch ($role)
+     {
+        case 'civil/structural':
+            return '/OBO-LGU/view/Civil&Structural/Home.php';
+        case 'electrical/electronics':
+            return '/OBO-LGU/view/Electrical&Electronics/Home.php';
+        case 'architectural':
+            return '/OBO-LGU/view/Architectural/Home.php';
         case 'mechanical':
-            return '../inspectors/Mechanical_dashboard/Home.php';
+            return '/OBO-LGU/view/inspectors/Mechanical_dashboard/Home.php';
+        case 'line/grade':
+            return '/OBO-LGU/view/inspectors/Line&Grade_dashboard/Home.php';
+        case 'sanitary/plumbing':
+            return '/OBO-LGU/view/inspectors/Sanitary&Plumbing_dashboard/Home.php';
         default:
-            return '../admin_dashboard/Home.php';
+            return '/OBO-LGU/view/Admin/Home.php';
     }
 }
