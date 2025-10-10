@@ -103,11 +103,11 @@ function getRedirectUrl($role)
     switch ($role)
      {
         case 'civil/structural':
-            return '/OBO-LGU/view/Civil&Structural/Home.php';
+            return '/OBO-LGU/view/inspectors/Civil&Structural_dashboard/Home.php';
         case 'electrical/electronics':
-            return '/OBO-LGU/view/Electrical&Electronics/Home.php';
+            return '/OBO-LGU/view/inspectors/Electrical&Electronics_dashboard/Home.php';
         case 'architectural':
-            return '/OBO-LGU/view/Architectural/Home.php';
+            return '/OBO-LGU/view/inspectors/Architectural_dashboard/Home.php';
         case 'mechanical':
             return '/OBO-LGU/view/inspectors/Mechanical_dashboard/Home.php';
         case 'line/grade':

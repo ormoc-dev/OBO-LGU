@@ -762,7 +762,7 @@
     // ------- Dynamic Excel Imports Preview -------
     async function loadLatestImportAndRender() {
         try {
-            const res = await fetch('/obo/api/excel/get_latest.php?limit=99999&page=1');
+            const res = await fetch('/OBO-LGU/api/excel/get_latest.php?limit=99999&page=1');
             const json = await res.json();
             if (!json.success || !json.data || !json.data.import) {
                 const tbody = document.querySelector('#businessTable tbody');
@@ -848,7 +848,7 @@
         `;
 
         try {
-            const url = `/obo/api/excel/get_data.php?import_id=${encodeURIComponent(importId)}&page=1&limit=99999`;
+            const url = `/OBO-LGU/api/excel/get_data.php?import_id=${encodeURIComponent(importId)}&page=1&limit=99999`;
             const res = await fetch(url);
             const json = await res.json();
             if (!json.success) {
@@ -1645,7 +1645,7 @@
         }, 300);
 
         // Send to server
-        fetch('/obo/api/excel/import.php', {
+        fetch('/OBO-LGU/api/excel/import.php', {
                 method: 'POST',
                 body: formData
             })
@@ -1657,7 +1657,7 @@
                 if (response.status === 401) {
                     showNotification('Session expired. Please log in again.', 'error');
                     setTimeout(() => {
-                        window.location.href = '/obo/view/auth/Login.php';
+                        window.location.href = '/OBO-LGU/view/auth/Login.php';
                     }, 2000);
                     return Promise.reject('Authentication required');
                 }
@@ -1797,7 +1797,7 @@
             return;
         }
 
-        const url = `/obo/api/excel/get_data.php?import_id=${currentImportId}&page=${currentPage}&limit=99999`;
+        const url = `/OBO-LGU/api/excel/get_data.php?import_id=${currentImportId}&page=${currentPage}&limit=99999`;
         console.log('Loading data from:', url);
 
         fetch(url)

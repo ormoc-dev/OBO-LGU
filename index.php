@@ -19,6 +19,36 @@
         .features-viewport .welcome-features {
             will-change: transform;
         }
+
+        /* Version info styling */
+        .version-info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .version-text {
+            font-size: 12px;
+            color: #ffffff;
+            background: linear-gradient(135deg, rgba(102, 210, 234, 0.9) 0%, rgba(62, 153, 227, 0.9) 100%);
+            padding: 8px 16px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: inline-block;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .version-text:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, rgba(102, 210, 234, 1) 0%, rgba(62, 153, 227, 1) 100%);
+        }
     </style>
 </head>
 
@@ -53,6 +83,8 @@
                         Learn More
                     </a>
                 </section>
+
+
             </div>
 
             <div class="welcome-right">
@@ -88,8 +120,14 @@
                     </section>
                 </div>
             </div>
+           
         </main>
+
+        <div class="version-info">
+            <span class="version-text">v1.0.0</span>
+        </div>
     </div>
+
     <script>
         // Initialize Lottie animation
         (function() {

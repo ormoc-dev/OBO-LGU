@@ -47,36 +47,27 @@ if (!$user) {
         document.addEventListener('DOMContentLoaded', function() {
             // Load metrics + lists from API
             function loadMechanicalStats() {
-                fetch('../../../api/mechanical/metrics.php')
+                fetch('../../../api/inspections/get_inspections.php')
                     .then(r => r.json())
                     .then(res => {
                         if (!res.success) throw new Error(res.message || 'Failed');
-                        document.getElementById('statToday').textContent = String(res.data.today || 0);
-                        document.getElementById('statWeek').textContent = String(res.data.week || 0);
-                        document.getElementById('statDone').textContent = String(res.data.completed || 0);
+                        const stats = res.data.statistics;
+                        document.getElementById('statToday').textContent = String(stats.today || 0);
+                        document.getElementById('statWeek').textContent = String(stats.this_week || 0);
+                        document.getElementById('statDone').textContent = String(stats.completed || 0);
                     })
                     .catch(err => console.error('Metrics error', err));
 
-                fetch('../../../api/mechanical/upcoming.php')
+                // Load recent inspections
+                fetch('../../../api/inspections/get_inspections.php?limit=5')
                     .then(r => r.json())
                     .then(res => {
                         if (!res.success) throw new Error(res.message || 'Failed');
-                        renderList('upcomingList', (res.data || []).map(i => `
+                        const inspections = res.data.inspections || [];
+                        renderList('recentList', inspections.map(i => `
                             <div class="list-item">
-                                <div class="li-main">${i.site}</div>
-                                <div class="li-sub">${i.when} • ${i.ref}</div>
-                            </div>`));
-                    })
-                    .catch(err => console.error('Upcoming error', err));
-
-                fetch('../../../api/mechanical/recent.php')
-                    .then(r => r.json())
-                    .then(res => {
-                        if (!res.success) throw new Error(res.message || 'Failed');
-                        renderList('recentList', (res.data || []).map(i => `
-                            <div class="list-item">
-                                <div class="li-main">${i.status}</div>
-                                <div class="li-sub">${i.site} • ${i.time}</div>
+                                <div class="li-main">${i.inspection_number}</div>
+                                <div class="li-sub">${i.status} • ${new Date(i.created_at).toLocaleDateString()}</div>
                             </div>`));
                     })
                     .catch(err => console.error('Recent error', err));
@@ -90,6 +81,34 @@ if (!$user) {
             }
 
             function handleBottomAction(action) {
+                // Handle logout action
+                if (action === 'logout') {
+                    if (confirm('Are you sure you want to logout?')) {
+                        // Call logout API
+                        fetch('../../../api/auth/logout.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Redirect to login page
+                                window.location.href = '/OBO-LGU/view/auth/Login.php';
+                            } else {
+                                alert('Logout failed. Please try again.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Logout error:', error);
+                            // Force redirect even if API fails
+                            window.location.href = '/OBO-LGU/view/auth/Login.php';
+                        });
+                    }
+                    return;
+                }
+
                 // Map actions to component targets
                 const target = (
                     action === 'home' ? 'dashboard' :
@@ -202,7 +221,7 @@ if (!$user) {
                                         
                                         console.log('Submitting form data:', payload);
                                         
-                                        fetch('../../../api/mechanical/create.php', {
+                                        fetch('../../../api/inspections/create.php', {
                                                 method: 'POST',
                                                 headers: {
                                                     'Content-Type': 'application/json'
@@ -226,6 +245,28 @@ if (!$user) {
                                     });
                                 }
                                 
+                                // Initialize tab functionality
+                                const tabButtons = document.querySelectorAll('.tab-btn');
+                                const tabContents = document.querySelectorAll('.tab-content');
+                                
+                                tabButtons.forEach(button => {
+                                    button.addEventListener('click', () => {
+                                        // Remove active class from all buttons and contents
+                                        tabButtons.forEach(btn => btn.classList.remove('active'));
+                                        tabContents.forEach(content => content.classList.remove('active'));
+                                        
+                                        // Add active class to clicked button
+                                        button.classList.add('active');
+                                        
+                                        // Show corresponding content
+                                        const targetTab = button.getAttribute('data-tab');
+                                        const targetContent = document.getElementById(targetTab);
+                                        if (targetContent) {
+                                            targetContent.classList.add('active');
+                                        }
+                                    });
+                                });
+
                                 // Initialize fee calculation functions after component loads
                                 setTimeout(() => {
                                     // Define calculateFees function

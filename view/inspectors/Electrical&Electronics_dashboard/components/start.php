@@ -1,6 +1,6 @@
 <section class="section">
     <div class="section-header">
-        <h2><i class="fas fa-cogs"></i> Mechanical Inspection Form</h2>
+        <h2><i class="fas fa-bolt"></i> Electrical & Electronics Inspection Form</h2>
         <p class="section-subtitle">Complete inspection details and fee calculation</p>
     </div>
 
@@ -61,389 +61,268 @@
                     <input type="time" id="timeOut" required>
                 </div>
                 <div class="form-group">
+                    <label for="inspectionDate"><i class="fas fa-calendar"></i> Date</label>
+                    <input type="date" id="inspectionDate" required>
+                </div>
+                <div class="form-group">
                     <label for="assessment"><i class="fas fa-check-circle"></i> Assessment</label>
                     <select id="assessment" required>
                         <option value="">Select Assessment</option>
-                        <option value="passed">✅ Passed</option>
-                        <option value="failed">❌ Failed</option>
-                        <option value="conditional">⚠️ Conditional</option>
-                        <option value="pending">⏳ Pending</option>
+                        <option value="passed">Passed</option>
+                        <option value="failed">Failed</option>
+                        <option value="conditional">Conditional</option>
+                        <option value="pending">Pending</option>
                     </select>
                 </div>
             </div>
         </div>
 
-        <!-- Mechanical Inspection Fees Section -->
+        <!-- Electrical & Electronics Inspection Fees Section -->
         <div class="form-section">
             <div class="section-title">
-                <h3><i class="fas fa-calculator"></i> Mechanical Inspection Fees</h3>
-                <p class="section-description">Calculate fees based on equipment specifications</p>
+                <h3><i class="fas fa-calculator"></i> Electrical & Electronics Inspection Fees</h3>
+                <p class="section-description">Calculate fees based on electrical load and equipment specifications</p>
             </div>
 
             <!-- Fee Tabs -->
             <div class="fee-tabs">
-                <button class="tab-btn active" data-tab="hvac">HVAC Systems</button>
-                <button class="tab-btn" data-tab="transport">Transport Systems</button>
-                <button class="tab-btn" data-tab="power">Power & Boilers</button>
-                <button class="tab-btn" data-tab="pumps">Pumps & Water</button>
-                <button class="tab-btn" data-tab="machinery">Machinery & Equipment</button>
-                <button class="tab-btn" data-tab="testing">Testing & Calibration</button>
+                <button class="tab-btn active" data-tab="electrical">Electrical Systems</button>
+                <button class="tab-btn" data-tab="electronics">Electronics Systems</button>
+                <button class="tab-btn" data-tab="communication">Communication</button>
+                <button class="tab-btn" data-tab="miscellaneous">Miscellaneous</button>
             </div>
 
             <div class="fee-categories">
-                <!-- HVAC Systems Tab -->
-                <div class="tab-content active" id="hvac">
-                    <!-- Refrigeration & Ice Plant -->
+                <!-- Electrical Systems Tab -->
+                <div class="tab-content active" id="electrical">
+                    <!-- Total Connected Load -->
                     <div class="fee-category">
                     <div class="category-header">
-                        <h4><i class="fas fa-snowflake"></i> Refrigeration & Ice Plant</h4>
+                            <h4><i class="fas fa-plug"></i> Total Connected Load</h4>
                     </div>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="refrigerationTons">Tonnage</label>
-                            <input type="number" id="refrigerationTons" min="0" step="0.1" placeholder="Enter tonnage">
+                                <label for="connectedLoadKva">Connected Load (kVA)</label>
+                                <input type="number" id="connectedLoadKva" min="0" step="0.1" placeholder="Enter kVA rating">
                         </div>
                         <div class="form-group">
-                            <label for="refrigerationCategory">Category</label>
-                            <select id="refrigerationCategory">
+                                <label for="connectedLoadCategory">Category</label>
+                                <select id="connectedLoadCategory">
                                 <option value="">Select Category</option>
-                                <option value="up_to_100">Up to 100 Tons</option>
-                                <option value="100_to_150">Above 100 Tons up to 150 Tons</option>
-                                <option value="150_to_300">Above 150 Tons up to 300 Tons</option>
-                                <option value="300_to_500">Above 300 Tons up to 500 Tons</option>
-                                <option value="above_500">Above 500 Tons</option>
+                                    <option value="up_to_5">5 kVA or less</option>
+                                    <option value="5_to_50">Over 5 kVA up to 50 kVA</option>
+                                    <option value="50_to_300">Over 50 kVA up to 300 kVA</option>
+                                    <option value="300_to_1500">Over 300 kVA up to 1,500 kVA</option>
+                                    <option value="1500_to_6000">Over 1,500 kVA up to 6,000 kVA</option>
+                                    <option value="above_6000">Over 6,000 kVA</option>
+                            </select>
+                            </div>
+                    </div>
+                </div>
+
+                    <!-- Transformer/UPS/Generator -->
+                <div class="fee-category">
+                    <div class="category-header">
+                            <h4><i class="fas fa-bolt"></i> Transformer/UPS/Power Generator</h4>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                                <label for="transformerKva">Capacity (kVA)</label>
+                                <input type="number" id="transformerKva" min="0" step="0.1" placeholder="Enter kVA rating">
+                            </div>
+                            <div class="form-group">
+                                <label for="transformerCategory">Category</label>
+                                <select id="transformerCategory">
+                                    <option value="">Select Category</option>
+                                    <option value="up_to_5">5 kVA or less</option>
+                                    <option value="5_to_50">Over 5 kVA up to 50 kVA</option>
+                                    <option value="50_to_300">Over 50 kVA up to 300 kVA</option>
+                                    <option value="300_to_1500">Over 300 kVA up to 1,500 kVA</option>
+                                    <option value="1500_to_6000">Over 1,500 kVA up to 6,000 kVA</option>
+                                    <option value="above_6000">Over 6,000 kVA</option>
                             </select>
                         </div>
                     </div>
                 </div>
 
-                <!-- Air Conditioning System -->
+                    <!-- Pole/Attachment Location Plan -->
                 <div class="fee-category">
                     <div class="category-header">
-                        <h4><i class="fas fa-wind"></i> Air Conditioning System</h4>
+                            <h4><i class="fas fa-map-pin"></i> Pole/Attachment Location Plan</h4>
                     </div>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="acType">Type</label>
-                            <select id="acType">
+                                <label for="powerSupplyPoles">Power Supply Poles</label>
+                                <input type="number" id="powerSupplyPoles" min="0" placeholder="Number of poles">
+                        </div>
+                        <div class="form-group">
+                                <label for="guyingAttachments">Guying Attachments</label>
+                                <input type="number" id="guyingAttachments" min="0" placeholder="Number of attachments">
+                            </div>
+                </div>
+                </div>
+
+                    <!-- Electric Meter Fees -->
+                <div class="fee-category">
+                    <div class="category-header">
+                            <h4><i class="fas fa-tachometer-alt"></i> Electric Meter Fees</h4>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                                <label for="meterType">Meter Type</label>
+                                <select id="meterType">
                                 <option value="">Select Type</option>
-                                <option value="window">Window Type ACU (per Unit)</option>
-                                <option value="packaged">Packaged/Centralized AC (per Ton)</option>
+                                    <option value="residential">Residential</option>
+                                    <option value="commercial">Commercial/Industrial</option>
+                                    <option value="institutional">Institutional</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="acUnits">Units/Tons</label>
-                            <input type="number" id="acUnits" min="0" placeholder="Number of units or tons">
+                                <label for="meterCount">Number of Meters</label>
+                                <input type="number" id="meterCount" min="0" placeholder="Number of meters">
+                        </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Mechanical Ventilation -->
+                <!-- Electronics Systems Tab -->
+                <div class="tab-content" id="electronics">
+                    <!-- Switching and Communication Systems -->
                 <div class="fee-category">
                     <div class="category-header">
-                        <h4><i class="fas fa-fan"></i> Mechanical Ventilation</h4>
+                            <h4><i class="fas fa-network-wired"></i> Switching and Communication Systems</h4>
                     </div>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="ventilationKw">Power Rating (kW)</label>
-                            <input type="number" id="ventilationKw" min="0" step="0.1" placeholder="Enter kW rating">
-                        </div>
-                        <div class="form-group">
-                            <label for="ventilationCategory">Category</label>
-                            <select id="ventilationCategory">
-                                <option value="">Select Category</option>
-                                <option value="up_to_1">Up to 1kW</option>
-                                <option value="1_to_7_5">Above 1kW to 7.5kW</option>
-                                <option value="above_7_5">Above 7.5kW</option>
-                            </select>
-                        </div>
+                                <label for="switchingPorts">Number of Ports</label>
+                                <input type="number" id="switchingPorts" min="0" placeholder="Number of ports">
                     </div>
                 </div>
                 </div>
 
-                <!-- Transport Systems Tab -->
-                <div class="tab-content" id="transport">
-                <!-- Escalators & Moving Walks -->
+                    <!-- Broadcast & Communication Stations -->
                 <div class="fee-category">
                     <div class="category-header">
-                        <h4><i class="fas fa-walking"></i> Escalators & Moving Walks</h4>
+                            <h4><i class="fas fa-broadcast-tower"></i> Broadcast & Communication Stations</h4>
                     </div>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="escalatorType">Type</label>
-                            <select id="escalatorType">
-                                <option value="">Select Type</option>
-                                <option value="escalator">Escalator & Moving Walks (per Unit)</option>
-                                <option value="funicular">Funicular (per kW)</option>
-                                <option value="cable_car">Cable Car (per kW)</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="escalatorUnits">Units/kW</label>
-                            <input type="number" id="escalatorUnits" min="0" placeholder="Number of units or kW">
-                        </div>
-                        <div class="form-group">
-                            <label for="escalatorMeters">Lineal Meters</label>
-                            <input type="number" id="escalatorMeters" min="0" step="0.1" placeholder="Lineal meters (if applicable)">
+                                <label for="broadcastLocations">Number of Locations</label>
+                                <input type="number" id="broadcastLocations" min="0" placeholder="Number of locations">
                         </div>
                     </div>
                 </div>
 
-                <!-- Elevators -->
+                    <!-- Electronic Dispensing & Vending Machines -->
                 <div class="fee-category">
                     <div class="category-header">
-                        <h4><i class="fas fa-elevator"></i> Elevators</h4>
+                            <h4><i class="fas fa-vending-machine"></i> Electronic Dispensing & Vending Machines</h4>
                     </div>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="elevatorType">Type</label>
-                            <select id="elevatorType">
-                                <option value="">Select Type</option>
-                                <option value="passenger">Passenger Elevators</option>
-                                <option value="freight">Freight Elevators</option>
-                                <option value="dumbwaiter">Motor-driven Dumbwaiters</option>
-                                <option value="construction">Construction Elevators</option>
-                                <option value="car">Car Elevators</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="elevatorUnits">Number of Units</label>
-                            <input type="number" id="elevatorUnits" min="0" placeholder="Number of units">
-                        </div>
-                        <div class="form-group">
-                            <label for="elevatorLandings">Landings Above 5</label>
-                            <input type="number" id="elevatorLandings" min="0" placeholder="Number of landings above 5">
-                        </div>
-                    </div>
+                                <label for="vendingMachines">Number of Units</label>
+                                <input type="number" id="vendingMachines" min="0" placeholder="Number of units">
+                            </div>
                 </div>
                 </div>
 
-                <!-- Power & Boilers Tab -->
-                <div class="tab-content" id="power">
-                <!-- Steam Boilers -->
+                    <!-- Electronics & Communications Outlets -->
                 <div class="fee-category">
                     <div class="category-header">
-                        <h4><i class="fas fa-fire"></i> Steam Boilers</h4>
+                            <h4><i class="fas fa-plug"></i> Electronics & Communications Outlets</h4>
                     </div>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="boilerKw">Power Rating (kW)</label>
-                            <input type="number" id="boilerKw" min="0" step="0.1" placeholder="Enter kW rating">
-                        </div>
+                                <label for="electronicsOutlets">Number of Outlets</label>
+                                <input type="number" id="electronicsOutlets" min="0" placeholder="Number of outlets">
+                            </div>
+                    </div>
+                </div>
+
+                    <!-- Security & Control Systems -->
+                <div class="fee-category">
+                    <div class="category-header">
+                            <h4><i class="fas fa-shield-alt"></i> Security & Control Systems</h4>
+                    </div>
+                    <div class="form-grid">
                         <div class="form-group">
-                            <label for="boilerUnits">Number of Units</label>
-                            <input type="number" id="boilerUnits" min="0" placeholder="Number of units">
+                                <label for="securityTerminations">Number of Terminations</label>
+                                <input type="number" id="securityTerminations" min="0" placeholder="Number of terminations">
+                        </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Pressurized Water Heaters -->
+                <!-- Communication Tab -->
+                <div class="tab-content" id="communication">
+                    <!-- Studios & Production Facilities -->
                 <div class="fee-category">
                     <div class="category-header">
-                        <h4><i class="fas fa-thermometer-half"></i> Pressurized Water Heaters</h4>
+                            <h4><i class="fas fa-video"></i> Studios & Production Facilities</h4>
                     </div>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="waterHeaterUnits">Number of Units</label>
-                            <input type="number" id="waterHeaterUnits" min="0" placeholder="Number of units">
-                        </div>
-                    </div>
-                </div>
-                </div>
-
-                <!-- Pumps & Water Tab -->
-                <div class="tab-content" id="pumps">
-                <!-- Automatic Fire Extinguishers -->
-                <div class="fee-category">
-                    <div class="category-header">
-                        <h4><i class="fas fa-fire-extinguisher"></i> Automatic Fire Extinguishers</h4>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="sprinklerHeads">Number of Sprinkler Heads</label>
-                            <input type="number" id="sprinklerHeads" min="0" placeholder="Number of sprinkler heads">
+                                <label for="studioLocations">Number of Locations</label>
+                                <input type="number" id="studioLocations" min="0" placeholder="Number of locations">
                         </div>
                     </div>
                 </div>
 
-                <!-- Water/Sump/Sewage Pumps -->
+                    <!-- Antenna Towers/Masts -->
                 <div class="fee-category">
                     <div class="category-header">
-                        <h4><i class="fas fa-tint"></i> Water/Sump/Sewage Pumps</h4>
+                            <h4><i class="fas fa-satellite-dish"></i> Antenna Towers/Masts</h4>
                     </div>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="pumpKw">Power Rating (kW)</label>
-                            <input type="number" id="pumpKw" min="0" step="0.1" placeholder="Enter kW rating">
-                        </div>
+                                <label for="antennaStructures">Number of Structures</label>
+                                <input type="number" id="antennaStructures" min="0" placeholder="Number of structures">
+                            </div>
+                </div>
+                </div>
+
+                    <!-- Electronic Signages & Display Systems -->
+                <div class="fee-category">
+                    <div class="category-header">
+                            <h4><i class="fas fa-tv"></i> Electronic Signages & Display Systems</h4>
+                    </div>
+                    <div class="form-grid">
                         <div class="form-group">
-                            <label for="pumpUnits">Number of Units</label>
-                            <input type="number" id="pumpUnits" min="0" placeholder="Number of units">
+                                <label for="electronicSignages">Number of Units</label>
+                                <input type="number" id="electronicSignages" min="0" placeholder="Number of units">
                         </div>
                     </div>
                 </div>
 
-                <!-- Diesel/Gasoline Engines & Generators -->
+                    <!-- Poles and Attachments -->
                 <div class="fee-category">
                     <div class="category-header">
-                        <h4><i class="fas fa-cog"></i> Diesel/Gasoline Engines & Generators</h4>
+                            <h4><i class="fas fa-pole"></i> Poles and Attachments</h4>
                     </div>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="generatorKw">Power Rating (kW)</label>
-                            <input type="number" id="generatorKw" min="0" step="0.1" placeholder="Enter kW rating">
+                                <label for="poleCount">Number of Poles</label>
+                                <input type="number" id="poleCount" min="0" placeholder="Number of poles">
                         </div>
                         <div class="form-group">
-                            <label for="generatorUnits">Number of Units</label>
-                            <input type="number" id="generatorUnits" min="0" placeholder="Number of units">
+                                <label for="attachmentCount">Number of Attachments</label>
+                                <input type="number" id="attachmentCount" min="0" placeholder="Number of attachments">
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Compressed Air/Vacuum/Gases -->
+                <!-- Miscellaneous Tab -->
+                <div class="tab-content" id="miscellaneous">
+                    <!-- Other Electronic Devices -->
                 <div class="fee-category">
                     <div class="category-header">
-                        <h4><i class="fas fa-wind"></i> Compressed Air/Vacuum/Gases</h4>
+                            <h4><i class="fas fa-microchip"></i> Other Electronic Devices</h4>
                     </div>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="gasOutlets">Number of Outlets</label>
-                            <input type="number" id="gasOutlets" min="0" placeholder="Number of outlets">
-                        </div>
-                    </div>
-                </div>
-                </div>
-
-                <!-- Machinery & Equipment Tab -->
-                <div class="tab-content" id="machinery">
-                <!-- Power Piping -->
-                <div class="fee-category">
-                    <div class="category-header">
-                        <h4><i class="fas fa-pipe"></i> Power Piping</h4>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="pipingMeters">Lineal Meters</label>
-                            <input type="number" id="pipingMeters" min="0" step="0.1" placeholder="Lineal meters">
-                        </div>
-                        <div class="form-group">
-                            <label for="pipingVolume">Volume (cu.m.)</label>
-                            <input type="number" id="pipingVolume" min="0" step="0.1" placeholder="Volume in cubic meters">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Other Internal Combustion Engines -->
-                <div class="fee-category">
-                    <div class="category-header">
-                        <h4><i class="fas fa-truck"></i> Other Internal Combustion Engines</h4>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="iceKw">Power Rating (kW)</label>
-                            <input type="number" id="iceKw" min="0" step="0.1" placeholder="Enter kW rating">
-                        </div>
-                        <div class="form-group">
-                            <label for="iceUnits">Number of Units</label>
-                            <input type="number" id="iceUnits" min="0" placeholder="Number of units">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Other Machinery/Equipment -->
-                <div class="fee-category">
-                    <div class="category-header">
-                        <h4><i class="fas fa-industry"></i> Other Machinery/Equipment</h4>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="machineryKw">Power Rating (kW)</label>
-                            <input type="number" id="machineryKw" min="0" step="0.1" placeholder="Enter kW rating">
-                        </div>
-                        <div class="form-group">
-                            <label for="machineryUnits">Number of Units</label>
-                            <input type="number" id="machineryUnits" min="0" placeholder="Number of units">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pressure Vessels -->
-                <div class="fee-category">
-                    <div class="category-header">
-                        <h4><i class="fas fa-drum"></i> Pressure Vessels</h4>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="pressureVesselVolume">Volume (cu.m.)</label>
-                            <input type="number" id="pressureVesselVolume" min="0" step="0.1" placeholder="Volume in cubic meters">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pneumatic Tubes/Conveyors -->
-                <div class="fee-category">
-                    <div class="category-header">
-                        <h4><i class="fas fa-conveyor-belt"></i> Pneumatic Tubes/Conveyors</h4>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="conveyorMeters">Lineal Meters</label>
-                            <input type="number" id="conveyorMeters" min="0" step="0.1" placeholder="Lineal meters">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Weighing Scale Structure -->
-                <div class="fee-category">
-                    <div class="category-header">
-                        <h4><i class="fas fa-weight"></i> Weighing Scale Structure</h4>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="scaleTons">Weight (Tons)</label>
-                            <input type="number" id="scaleTons" min="0" step="0.1" placeholder="Weight in tons">
-                        </div>
-                    </div>
-                </div>
-                </div>
-
-                <!-- Testing & Calibration Tab -->
-                <div class="tab-content" id="testing">
-                <!-- Pressure Gauges Testing -->
-                <div class="fee-category">
-                    <div class="category-header">
-                        <h4><i class="fas fa-gauge"></i> Pressure Gauges Testing</h4>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="pressureGauges">Number of Units</label>
-                            <input type="number" id="pressureGauges" min="0" placeholder="Number of pressure gauges">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Gas Meters -->
-                <div class="fee-category">
-                    <div class="category-header">
-                        <h4><i class="fas fa-gas-pump"></i> Gas Meters</h4>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="gasMeters">Number of Gas Meters</label>
-                            <input type="number" id="gasMeters" min="0" placeholder="Number of gas meters">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mechanical Rides -->
-                <div class="fee-category">
-                    <div class="category-header">
-                        <h4><i class="fas fa-ferris-wheel"></i> Mechanical Rides</h4>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="mechanicalRides">Number of Units</label>
-                            <input type="number" id="mechanicalRides" min="0" placeholder="Number of mechanical rides">
+                                <label for="otherDevices">Number of Units</label>
+                                <input type="number" id="otherDevices" min="0" placeholder="Number of units">
                         </div>
                     </div>
                 </div>

@@ -336,7 +336,7 @@
 }
 
 .login-card {
-    animation: slideInUp 0.8s ease-out;
+    /* Animation removed */
 }
 
 /* Loading Animation */

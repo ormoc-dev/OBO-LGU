@@ -6,9 +6,30 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     position: relative;
     overflow-x: hidden;
     padding: 10px 20px;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* Ensure proper box-sizing for all elements */
+* {
+    box-sizing: border-box;
+}
+
+/* Smooth scrolling for better UX */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Container wrapper for better content management */
+.welcome-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
 }
 
 
@@ -27,6 +48,8 @@
     width: 550px;
     height: auto;
     object-fit: contain;
+    max-width: 100%;
+    display: block;
 }
 
 .welcome-header-container{
@@ -44,6 +67,9 @@
     max-width: 800px;
     margin: 0;
     line-height: 1.6;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* Main Content */
@@ -52,7 +78,9 @@
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: start;
- 
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
 .welcome-left {
@@ -170,6 +198,9 @@
     position: relative;
     overflow: hidden;
     min-width: 160px;
+    min-height: 44px; /* Minimum touch target size */
+    touch-action: manipulation; /* Prevent double-tap zoom */
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
 }
 
 .btn-primary {
@@ -195,10 +226,91 @@
     transform: translateY(-2px);
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
+/* ===========================================
+   COMPREHENSIVE RESPONSIVE DESIGN
+   =========================================== */
+
+/* Ultra-wide screens (1920px+) */
+@media (min-width: 1920px) {
     .welcome-main {
-        gap: 3rem;
+        gap: 6rem;
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+    
+    .welcome-title-img {
+        width: 700px;
+    }
+    
+    .welcome-logo img {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .lottie-building {
+        max-width: 800px;
+        height: 650px;
+    }
+    
+    .welcome-subtitle {
+        font-size: 1.6rem;
+    }
+    
+    .welcome-description p {
+        font-size: 1.4rem;
+    }
+}
+
+/* Large Desktop (1440px - 1919px) */
+@media (max-width: 1919px) and (min-width: 1440px) {
+    .welcome-main {
+        gap: 5rem;
+    }
+    
+    .welcome-title-img {
+        width: 600px;
+    }
+    
+    .welcome-logo img {
+        width: 160px;
+        height: 160px;
+    }
+    
+    .lottie-building {
+        max-width: 700px;
+        height: 580px;
+    }
+}
+
+/* Desktop (1200px - 1439px) */
+@media (max-width: 1439px) and (min-width: 1200px) {
+    .welcome-main {
+        gap: 4rem;
+    }
+    
+    .welcome-title-img {
+        width: 500px;
+    }
+    
+    .welcome-logo img {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .lottie-building {
+        max-width: 600px;
+        height: 500px;
+    }
+}
+
+/* Small Desktop (1024px - 1199px) */
+@media (max-width: 1199px) and (min-width: 1024px) {
+    .body-welcome {
+        padding: 8px 15px;
+    }
+    
+    .welcome-main {
+        gap: 3.5rem;
     }
     
     .welcome-title-img {
@@ -209,46 +321,10 @@
         width: 120px;
         height: 120px;
     }
-}
-
-/* Tablet Responsive Design */
-@media (max-width: 1024px) and (min-width: 769px) {
-    .body-welcome {
-        padding: 8px;
-    }
     
-    .welcome-container {
-        padding: 1.5rem;
-    }
-    
-    .welcome-header {
-        margin-bottom: 3rem;
-        padding: 1.5rem 0;
-    }
-    
-    .welcome-main {
-        gap: 3rem;
-        margin-top: -1rem;
-        display: grid;
-    }
-    
-    .welcome-right {
-        margin-top: -8rem;
-        align-items: center;
-    }
-    
-    .welcome-header-container {
-        gap: 1.5rem;
-        display: flex !important;
-    }
-    
-    .welcome-logo img {
-        width: 110px;
-        height: 110px;
-    }
-    
-    .welcome-title-img {
-        width: 400px;
+    .lottie-building {
+        max-width: 550px;
+        height: 450px;
     }
     
     .welcome-subtitle {
@@ -258,73 +334,121 @@
     .welcome-description p {
         font-size: 1.15rem;
     }
+}
+
+/* Large Tablet (768px - 1023px) */
+@media (max-width: 1023px) and (min-width: 768px) {
+    .body-welcome {
+        padding: 6px 12px;
+    }
+    
+    .welcome-main {
+        gap: 3rem;
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .welcome-left {
+        order: 1;
+        align-items: center;
+    }
+    
+    .welcome-right {
+        order: 2;
+        align-items: center;
+        margin-top: 2rem;
+    }
+    
+    .welcome-header-container {
+        justify-content: center;
+        gap: 1.5rem;
+    }
+    
+    .welcome-logo img {
+        width: 110px;
+        height: 110px;
+    }
+    
+    .welcome-title-img {
+        width: 400px;
+        max-width: 100%;
+    }
+    
+    .welcome-subtitle {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+    
+    .welcome-description {
+        text-align: center;
+    }
+    
+    .welcome-description p {
+        font-size: 1.15rem;
+    }
+    
+    .lottie-building {
+        max-width: 500px;
+        height: 380px;
+        margin-bottom: 20px;
+    }
     
     .welcome-features {
         gap: 1.2rem;
-       
-    }
-
-    /* Tablet Lottie sizing */
-    .lottie-building {
-        max-width: 520px;
-        height: 360px;
-        margin-bottom: 18px;
     }
     
     .feature-section {
         padding: 1.3rem;
+        text-align: center;
     }
     
     .feature-title {
         font-size: 1.3rem;
     }
     
-    .feature-description {
-        font-size: 1rem;
+    .feature-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .welcome-actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 1rem;
+        text-align: center;
     }
     
     .btn {
         padding: 1rem 2.2rem;
         font-size: 1rem;
+        min-width: 180px;
     }
 }
 
-@media (max-width: 768px) {
+/* Tablet Portrait (600px - 767px) */
+@media (max-width: 767px) and (min-width: 600px) {
     .body-welcome {
-        padding: 5px;
-    }
-    
-    .welcome-container {
-        padding: 1rem;
-    }
-    
-    .welcome-header {
-        margin-bottom: 2rem;
-        padding: 1rem 0;
+        padding: 4px 8px;
     }
     
     .welcome-main {
+        gap: 2.5rem;
         grid-template-columns: 1fr;
-        gap: 2rem;
-        margin-top: 0;
     }
     
     .welcome-left {
         gap: 1.5rem;
+        align-items: center;
     }
     
     .welcome-right {
-        margin-top: 0;
-    }
-
-    .lottie-building {
-        max-width: 420px;
-        height: 300px;
+        align-items: center;
     }
     
     .welcome-header-container {
-        margin: auto;   
-        display: flex !important;
+        justify-content: center;
+        gap: 1rem;
     }
     
     .welcome-logo img {
@@ -350,14 +474,23 @@
         font-size: 1.1rem;
     }
     
+    .lottie-building {
+        max-width: 420px;
+        height: 320px;
+        margin-bottom: 18px;
+    }
+    
     .welcome-features {
         gap: 1rem;
-        margin-top: -3rem !important;
     }
     
     .feature-section {
-        padding: 1.5rem 1rem;
+        padding: 1.2rem;
         text-align: center;
+    }
+    
+    .feature-title {
+        font-size: 1.2rem;
     }
     
     .feature-title::after {
@@ -375,39 +508,120 @@
     
     .btn {
         width: 100%;
-        max-width: 280px;
+        max-width: 300px;
         margin: 0;
         padding: 1rem 2rem;
     }
 }
 
-@media (max-width: 480px) {
+/* Mobile Landscape (480px - 599px) */
+@media (max-width: 599px) and (min-width: 480px) {
     .body-welcome {
-        padding: 2px;
-    }
-   
-    .welcome-container {
-        padding: 0.5rem;
+        padding: 3px 6px;
     }
     
-    .welcome-header {
-        margin-bottom: 1.5rem;
-        padding: 0.5rem 0;
+    .welcome-main {
+        gap: 2rem;
+    }
+    
+    .welcome-left {
+        gap: 1.2rem;
+        align-items: center;
+    }
+    
+    .welcome-header-container {
+        justify-content: center;
+        gap: 0.8rem;
+    }
+    
+    .welcome-logo img {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .welcome-title-img {
+        width: 300px;
+        max-width: 100%;
+    }
+    
+    .welcome-subtitle {
+        font-size: 1.1rem;
+        text-align: center;
+    }
+    
+    .welcome-description {
+        text-align: center;
+    }
+    
+    .welcome-description p {
+        font-size: 1rem;
+    }
+    
+    .lottie-building {
+        max-width: 380px;
+        height: 280px;
+        margin-bottom: 16px;
+    }
+    
+    .welcome-features {
+        gap: 0.8rem;
+    }
+    
+    .feature-section {
+        padding: 1rem;
+        text-align: center;
+    }
+    
+    .feature-title {
+        font-size: 1.1rem;
+    }
+    
+    .feature-description {
+        font-size: 0.95rem;
+    }
+    
+    .feature-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .welcome-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
+        text-align: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 280px;
+        margin: 0;
+        padding: 0.9rem 1.8rem;
+        font-size: 0.95rem;
+    }
+}
+
+/* Mobile Portrait (320px - 479px) */
+@media (max-width: 479px) {
+    .body-welcome {
+        padding: 2px 4px;
     }
     
     .welcome-main {
         gap: 1.5rem;
-        margin-top: 0;
     }
     
-    .welcome-right {
-        margin-top: 0;
+    .welcome-left {
+        gap: 1rem;
+        align-items: center;
     }
-
-    .lottie-building {
-        max-width: 360px;
-        height: 220px;
-        margin-bottom: 16px;
+    
+    .welcome-header-container {
+        justify-content: center;
+        gap: 0.6rem;
+        flex-direction: column;
+        align-items: center;
     }
     
     .welcome-logo img {
@@ -421,36 +635,159 @@
     }
     
     .welcome-subtitle {
-        font-size: 1.1rem;
-        padding: 0 1rem;
-    }
-    
-    .welcome-description p {
         font-size: 1rem;
+        text-align: center;
         padding: 0 0.5rem;
     }
     
-    .welcome-left {
-        gap: 1rem;
+    .welcome-description {
+        text-align: center;
+    }
+    
+    .welcome-description p {
+        font-size: 0.95rem;
+        padding: 0 0.5rem;
+    }
+    
+    .lottie-building {
+        max-width: 320px;
+        height: 240px;
+        margin-bottom: 14px;
+    }
+    
+    .welcome-features {
+        gap: 0.6rem;
     }
     
     .feature-section {
-        padding: 1rem;
-        margin: 0 0.5rem;
+        padding: 0.8rem;
+        text-align: center;
+        margin: 0 0.3rem;
     }
     
     .feature-title {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
     
     .feature-description {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+    }
+    
+    .feature-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .welcome-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.6rem;
+        text-align: center;
     }
     
     .btn {
+        width: 100%;
+        max-width: 260px;
+        margin: 0;
         padding: 0.8rem 1.5rem;
         font-size: 0.9rem;
-        max-width: 250px;
+    }
+}
+
+/* Extra Small Mobile (320px and below) */
+@media (max-width: 320px) {
+    .body-welcome {
+        padding: 1px 2px;
+    }
+    
+    .welcome-logo img {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .welcome-title-img {
+        width: 250px;
+    }
+    
+    .welcome-subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .welcome-description p {
+        font-size: 0.9rem;
+    }
+    
+    .lottie-building {
+        max-width: 280px;
+        height: 200px;
+    }
+    
+    .feature-section {
+        padding: 0.6rem;
+        margin: 0 0.2rem;
+    }
+    
+    .feature-title {
+        font-size: 0.95rem;
+    }
+    
+    .feature-description {
+        font-size: 0.8rem;
+    }
+    
+    .btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.85rem;
+        max-width: 240px;
+    }
+}
+
+/* ===========================================
+   VERSION INFO RESPONSIVE STYLING
+   =========================================== */
+
+/* Mobile devices - adjust version info positioning */
+@media (max-width: 768px) {
+    .version-info {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .version-text {
+        font-size: 11px;
+        padding: 6px 12px;
+        border-radius: 20px;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    .version-info {
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    .version-text {
+        font-size: 10px;
+        padding: 5px 10px;
+        border-radius: 18px;
+        letter-spacing: 0.3px;
+    }
+}
+
+/* Extra small mobile */
+@media (max-width: 320px) {
+    .version-info {
+        bottom: 8px;
+        right: 8px;
+    }
+    
+    .version-text {
+        font-size: 9px;
+        padding: 4px 8px;
+        border-radius: 15px;
+        letter-spacing: 0.2px;
     }
 }
 

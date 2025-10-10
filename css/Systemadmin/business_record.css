@@ -465,7 +465,6 @@
    overflow: hidden;
    text-overflow: ellipsis;
    white-space: nowrap;
-   text-align: left;
 }
 
 .business-table td:last-child {
@@ -653,7 +652,7 @@
 /* Empty state styling */
 .business-table tbody tr:only-child td {
     text-align: center;
-    padding: 60px 40px;
+    padding: 50px 0px;
     background: #fafbfc;
     font-style: italic;
     color: #64748b;
@@ -1457,13 +1456,13 @@
     }
 
     .business-table th {
-        padding: 10px 6px;
-        font-size: 11px;
+        padding: 12px 8px;
+        font-size: 12px;
     }
 
     .business-table td {
-        padding: 8px 6px;
-        font-size: 12px;
+        padding: 10px 8px;
+        font-size: 13px;
     }
 
     /* Dynamic columns - only fix the actions column width */
